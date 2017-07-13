@@ -8,7 +8,7 @@ namespace ToDB.Model
 {
     class SelectSubQuery
     {
-        public Command SubQuery { get; set; }
+        public ToDBCommand SubQuery { get; set; }
         public string Alias { get; set; }
     }
 }

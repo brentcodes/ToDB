@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{85C3484E-DB89-4DF9-8394-051425EB0916}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{5DD6C52B-5748-4985-B70E-BDA3E8E7A791}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ToDB</RootNamespace>
-    <AssemblyName>ToDB</AssemblyName>
+    <RootNamespace>Tester</RootNamespace>
+    <AssemblyName>Tester</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,34 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ToDBCommand.cs" />
-    <Compile Include="IConjunction.cs" />
-    <Compile Include="ICondition.cs" />
-    <Compile Include="ISqlSerializer.cs" />
-    <Compile Include="Model\BinaryComparison.cs" />
-    <Compile Include="Model\Conjunction.cs" />
-    <Compile Include="Model\FieldOrProperty.cs" />
-    <Compile Include="Model\GroupBy.cs" />
-    <Compile Include="Model\Insert.cs" />
-    <Compile Include="Model\Join.cs" />
-    <Compile Include="Model\OrderBy.cs" />
-    <Compile Include="Model\SelectItem.cs" />
-    <Compile Include="Model\SelectSubQuery.cs" />
-    <Compile Include="Model\SetItem.cs" />
-    <Compile Include="Model\SqlLiteralCondition.cs" />
-    <Compile Include="Model\TableItem.cs" />
-    <Compile Include="Model\UninaryComparison.cs" />
-    <Compile Include="Model\Union.cs" />
-    <Compile Include="Model\Values.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlClient\Extension.cs" />
-    <Compile Include="SqlClient\TSqlSerializer.cs" />
-    <Compile Include="SqlClient\TSqlSerializerOptions.cs" />
-    <Compile Include="ToDBException.cs" />
-    <Compile Include="Utility.cs" />
-    <Compile Include="ConditionBuilder.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToDB\ToDB.csproj">
+      <Project>{85C3484E-DB89-4DF9-8394-051425EB0916}</Project>
+      <Name>ToDB</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

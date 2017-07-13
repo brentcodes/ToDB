@@ -10,13 +10,13 @@ namespace System.Data.SqlClient
 {
     public static class Extension
     {
-        public static string ToSql(this Command command)
+        public static string ToSql(this ToDBCommand command)
         {
             TSqlSerializer serializer = new TSqlSerializer();
             return serializer.ToSql(command);
         }
 
-        public static string ToSql(this Command command, TSqlSerializerOptions options)
+        public static string ToSql(this ToDBCommand command, TSqlSerializerOptions options)
         {
             TSqlSerializer serializer = new TSqlSerializer(options);
             return serializer.ToSql(command);

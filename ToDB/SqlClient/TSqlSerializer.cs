@@ -21,14 +21,14 @@ namespace ToDB.SqlClient
             _options = options;
         }
 
-        public string ToSql(Command command)
+        public string ToSql(ToDBCommand command)
         {
             StringBuilder sql = new StringBuilder();
             ToSql(command, sql);
             return sql.ToString().TrimEnd();
         }
 
-        void ToSql(Command command, StringBuilder sql)
+        void ToSql(ToDBCommand command, StringBuilder sql)
         {
             BuidDelete(command, sql);
             BuildInsert(command, sql);
@@ -53,7 +53,7 @@ namespace ToDB.SqlClient
             }
         }
 
-        void BuidDelete(Command command, StringBuilder sql)
+        void BuidDelete(ToDBCommand command, StringBuilder sql)
         {
             if (command.DeleteClause != null)
             {
@@ -61,7 +61,7 @@ namespace ToDB.SqlClient
             }
         }
 
-        private void BuildSets(Command command, StringBuilder sql)
+        private void BuildSets(ToDBCommand command, StringBuilder sql)
         {
             if (command.SetItems != null && command.SetItems.Any())
             {
@@ -69,13 +69,13 @@ namespace ToDB.SqlClient
             }
         }
 
-        private void BuildUpdate(Command command, StringBuilder sql)
+        private void BuildUpdate(ToDBCommand command, StringBuilder sql)
         {
             if (command.UpdateClause != null)
                 sql.Append("update " + command.UpdateClause.Item + " ");
         }
 
-        void BuildInsert(Command command, StringBuilder sql)
+        void BuildInsert(ToDBCommand command, StringBuilder sql)
         {
             if (command.InsertClause != null)
             {
@@ -87,7 +87,7 @@ namespace ToDB.SqlClient
             }
         }
 
-        void BuildValues(Command command, StringBuilder sql)
+        void BuildValues(ToDBCommand command, StringBuilder sql)
         {
             if (command.ValuesClause != null && command.ValuesClause.Any())
             {
@@ -104,7 +104,7 @@ namespace ToDB.SqlClient
             }
         }
 
-        void BuildGroupBys(Command command, StringBuilder sql)
+        void BuildGroupBys(ToDBCommand command, StringBuilder sql)
         {
             if (command.GroupBys != null && command.GroupBys.Any())
             {
@@ -112,7 +112,7 @@ namespace ToDB.SqlClient
             }
         }
 
-        void BuildHavings(Command command, StringBuilder sql)
+        void BuildHavings(ToDBCommand command, StringBuilder sql)
         {
             if (command.HavingClause.Items.Any())
             {
@@ -121,7 +121,7 @@ namespace ToDB.SqlClient
             }
         }
 
-        void BuildUnions(Command command, StringBuilder sql)
+        void BuildUnions(ToDBCommand command, StringBuilder sql)
         {
             foreach (Union union in command.Unions)
             {
@@ -147,13 +147,13 @@ namespace ToDB.SqlClient
             }
         }
 
-        void BuildFrom(Command command, StringBuilder sql)
+        void BuildFrom(ToDBCommand command, StringBuilder sql)
         {
             if (command.FromClause != null)
                 sql.Append("from " + command.FromClause.Item + " ");
         }
 
-        void BuildWhere(Command command, StringBuilder sql)
+        void BuildWhere(ToDBCommand command, StringBuilder sql)
         {
             if (command.WhereClause.Items.Any())
             {
@@ -162,7 +162,7 @@ namespace ToDB.SqlClient
             }
         }
 
-        void BuildOrderBy(Command command, StringBuilder sql)
+        void BuildOrderBy(ToDBCommand command, StringBuilder sql)
         {
             if (command.OrderBys.Any())
             {
@@ -170,7 +170,7 @@ namespace ToDB.SqlClient
             }
         }
 
-        string RenderSubQuery(Command command, string alias)
+        string RenderSubQuery(ToDBCommand command, string alias)
         {
             StringBuilder sql = new StringBuilder();
             sql.Append("(");

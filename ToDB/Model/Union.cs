@@ -17,6 +17,6 @@ namespace ToDB.Model
         }
 
         public UnionType TypeOfUnion { get; set; }
-        public Command Query { get; set; }
+        public ToDBCommand Query { get; set; }
     }
 }

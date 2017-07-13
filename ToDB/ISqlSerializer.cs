@@ -8,6 +8,6 @@ namespace ToDB
 {
     public interface ISqlSerializer
     {
-        string ToSql(Command command);
+        string ToSql(ToDBCommand command);
     }
 }
