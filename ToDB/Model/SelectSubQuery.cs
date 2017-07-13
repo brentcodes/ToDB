@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToDB
+namespace ToDB.Model
 {
-    public class Class1
+    class SelectSubQuery
     {
+        public Command SubQuery { get; set; }
+        public string Alias { get; set; }
     }
 }
