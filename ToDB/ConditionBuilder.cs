@@ -31,7 +31,7 @@ namespace ToDB
             return this;
         }        
 
-        public IConjunction IsNull(Expression<Func<object>> column)
+        public IConjunction IsNull<T>(Expression<Func<T>> column)
         {
             return IsNull(column.ToSqlParameter());
         }
@@ -41,7 +41,7 @@ namespace ToDB
             return this;
         }
 
-        public IConjunction IsNotNull(Expression<Func<object>> column)
+        public IConjunction IsNotNull<T>(Expression<Func<T>> column)
         {
             return IsNotNull(column.ToSqlParameter());
         }
@@ -79,31 +79,31 @@ namespace ToDB
             return this;
         }
 
-        public IConjunction AreEqual(string left, string right)
+        public IConjunction IsEqual(string left, string right)
         {
             return Compare(left, right, BinaryComparison.BinaryComparisonType.Equal);
         }
-        public IConjunction IsEqual(string column, Expression<Func<object>> parameter)
+        public IConjunction IsEqual<T>(string column, Expression<Func<T>> parameter)
         {
-            return AreEqual(column, parameter.ToSqlParameter());
+            return IsEqual(column, parameter.ToSqlParameter());
         }
-        public IConjunction IsEqual(Expression<Func<object>> column, Expression<Func<object>> parameter)
+        public IConjunction IsEqual<T1, T2>(Expression<Func<T1>> column, Expression<Func<T2>> parameter)
         {
             return IsEqual(column.GetPropertyName(), parameter);
         }
-        public IConjunction IsEqual(Expression<Func<object>> columnAndParameter)
+        public IConjunction IsEqual<T>(Expression<Func<T>> columnAndParameter)
         {
             return IsEqual(columnAndParameter, columnAndParameter);
         }
-        public IConjunction AreEqual(string leftColumn, Expression<Func<object>> rightColumn)
+        public IConjunction AreEqual<T>(string leftColumn, Expression<Func<T>> rightColumn)
         {
-            return AreEqual(leftColumn, rightColumn.GetPropertyName());
+            return IsEqual(leftColumn, rightColumn.GetPropertyName());
         }
-        public IConjunction AreEqual(Expression<Func<object>> leftColumn, Expression<Func<object>> rightColumn)
+        public IConjunction AreEqual<T1, T2>(Expression<Func<T1>> leftColumn, Expression<Func<T2>> rightColumn)
         {
             return AreEqual(leftColumn.GetPropertyName(), rightColumn);
         }
-        public IConjunction AreEqual(Expression<Func<object>> columns)
+        public IConjunction AreEqual<T>(Expression<Func<T>> columns)
         {
             return AreEqual(columns, columns);
         }
@@ -112,15 +112,15 @@ namespace ToDB
         {
             return Compare(left, right, BinaryComparison.BinaryComparisonType.Like);
         }
-        public IConjunction IsLike(string column, Expression<Func<object>> parameter)
+        public IConjunction IsLike<T>(string column, Expression<Func<T>> parameter)
         {
             return IsLike(column, parameter.ToSqlParameter());
         }
-        public IConjunction IsLike(Expression<Func<object>> column, Expression<Func<object>> parameter)
+        public IConjunction IsLike<T1, T2>(Expression<Func<T1>> column, Expression<Func<T2>> parameter)
         {
             return IsLike(column.GetPropertyName(), parameter);
         }
-        public IConjunction IsLike(Expression<Func<object>> columnAndParameter)
+        public IConjunction IsLike<T>(Expression<Func<T>> columnAndParameter)
         {
             return IsLike(columnAndParameter, columnAndParameter);
         }
@@ -129,15 +129,15 @@ namespace ToDB
         {
             return Compare(left, right, BinaryComparison.BinaryComparisonType.GreaterThan);
         }
-        public IConjunction IsGreater(string column, Expression<Func<object>> parameter)
+        public IConjunction IsGreater<T>(string column, Expression<Func<T>> parameter)
         {
             return IsGreater(column, parameter.ToSqlParameter());
         }
-        public IConjunction IsGreater(Expression<Func<object>> column, Expression<Func<object>> parameter)
+        public IConjunction IsGreater<T1, T2>(Expression<Func<T1>> column, Expression<Func<T2>> parameter)
         {
             return IsGreater(column.GetPropertyName(), parameter);
         }
-        public IConjunction IsGreater(Expression<Func<object>> columnAndParameter)
+        public IConjunction IsGreater<T>(Expression<Func<T>> columnAndParameter)
         {
             return IsGreater(columnAndParameter, columnAndParameter);
         }
@@ -146,15 +146,15 @@ namespace ToDB
         {
             return Compare(left, right, BinaryComparison.BinaryComparisonType.GreaterThanOrEqual);
         }
-        public IConjunction IsGreaterOrEqual(string column, Expression<Func<object>> parameter)
+        public IConjunction IsGreaterOrEqual<T>(string column, Expression<Func<T>> parameter)
         {
             return IsGreaterOrEqual(column, parameter.ToSqlParameter());
         }
-        public IConjunction IsGreaterOrEqual(Expression<Func<object>> column, Expression<Func<object>> parameter)
+        public IConjunction IsGreaterOrEqual<T>(Expression<Func<T>> column, Expression<Func<T>> parameter)
         {
             return IsGreaterOrEqual(column.GetPropertyName(), parameter);
         }
-        public IConjunction IsGreaterOrEqual(Expression<Func<object>> columnAndParameter)
+        public IConjunction IsGreaterOrEqual<T>(Expression<Func<T>> columnAndParameter)
         {
             return IsGreaterOrEqual(columnAndParameter, columnAndParameter);
         }
@@ -163,15 +163,15 @@ namespace ToDB
         {
             return Compare(left, right, BinaryComparison.BinaryComparisonType.LessThan);
         }
-        public IConjunction IsLess(string column, Expression<Func<object>> parameter)
+        public IConjunction IsLess<T>(string column, Expression<Func<T>> parameter)
         {
             return IsLess(column, parameter.ToSqlParameter());
         }
-        public IConjunction IsLess(Expression<Func<object>> column, Expression<Func<object>> parameter)
+        public IConjunction IsLess<T>(Expression<Func<T>> column, Expression<Func<T>> parameter)
         {
             return IsLess(column.GetPropertyName(), parameter);
         }
-        public IConjunction IsLess(Expression<Func<object>> columnAndParameter)
+        public IConjunction IsLess<T>(Expression<Func<T>> columnAndParameter)
         {
             return IsLess(columnAndParameter, columnAndParameter);
         }
@@ -180,15 +180,15 @@ namespace ToDB
         {
             return Compare(left, right, BinaryComparison.BinaryComparisonType.LessThanOrEqual);
         }
-        public IConjunction IsLessOrEqual(string column, Expression<Func<object>> parameter)
+        public IConjunction IsLessOrEqual<T>(string column, Expression<Func<T>> parameter)
         {
             return IsLessOrEqual(column, parameter.ToSqlParameter());
         }
-        public IConjunction IsLessOrEqual(Expression<Func<object>> column, Expression<Func<object>> parameter)
+        public IConjunction IsLessOrEqual<T>(Expression<Func<T>> column, Expression<Func<T>> parameter)
         {
             return IsLessOrEqual(column.GetPropertyName(), parameter);
         }
-        public IConjunction IsLessOrEqual(Expression<Func<object>> columnAndParameter)
+        public IConjunction IsLessOrEqual<T>(Expression<Func<T>> columnAndParameter)
         {
             return IsLessOrEqual(columnAndParameter, columnAndParameter);
         }
@@ -197,15 +197,15 @@ namespace ToDB
         {
             return Compare(left, right, BinaryComparison.BinaryComparisonType.NotEqual);
         }
-        public IConjunction NotEqual(string column, Expression<Func<object>> parameter)
+        public IConjunction NotEqual<T>(string column, Expression<Func<T>> parameter)
         {
             return NotEqual(column, parameter.ToSqlParameter());
         }
-        public IConjunction NotEqual(Expression<Func<object>> column, Expression<Func<object>> parameter)
+        public IConjunction NotEqual<T>(Expression<Func<T>> column, Expression<Func<T>> parameter)
         {
             return NotEqual(column.GetPropertyName(), parameter);
         }
-        public IConjunction NotEqual(Expression<Func<object>> columnAndParameter)
+        public IConjunction NotEqual<T>(Expression<Func<T>> columnAndParameter)
         {
             return NotEqual(columnAndParameter, columnAndParameter);
         }

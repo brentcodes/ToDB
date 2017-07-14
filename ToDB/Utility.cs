@@ -18,13 +18,13 @@ namespace ToDB
                     .Select(p => p.Name);
         }
 
-        public static string GetPropertyName(this Expression<Func<object>> property)
+        public static string GetPropertyName<T>(this Expression<Func<T>> property)
         {
             MemberExpression member = property.Body as MemberExpression;
             PropertyInfo propInfo = member.Member as PropertyInfo;
             return propInfo.Name;
         }
-        public static string ToSqlParameter(this Expression<Func<object>> property)
+        public static string ToSqlParameter<T>(this Expression<Func<T>> property)
         {
             
             return  "@" + GetPropertyName(property);

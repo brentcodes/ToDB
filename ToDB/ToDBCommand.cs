@@ -65,6 +65,12 @@ namespace ToDB
             return this;
         }
 
+        public ToDBCommand SelectAllFrom(string table)
+        {
+            return Select("*")
+                    .From(table);
+        }
+
         public ToDBCommand SelectFrom<T>()
         {
             From(typeof(T).Name);
@@ -78,7 +84,7 @@ namespace ToDB
         }
         public ToDBCommand WhereAreEqual(string left, string right)
         {
-            return Where(where => where.AreEqual(left, right));
+            return Where(where => where.IsEqual(left, right));
         }
 
         public ToDBCommand NaturalJoin<Table1,Table2>()
@@ -92,7 +98,7 @@ namespace ToDB
             string intersectingColumn = intersection.Single().Name;
             if (FromClause == null)
                 From(t1.Name);
-            return InnerJoin(t2.Name, where => where.AreEqual(t1.Name + "." + intersectingColumn, t2.Name + "." + intersectingColumn));            
+            return InnerJoin(t2.Name, where => where.IsEqual(t1.Name + "." + intersectingColumn, t2.Name + "." + intersectingColumn));            
         }
 
         public ToDBCommand InnerJoin(string table, Action<ConditionBuilder> on)
@@ -101,7 +107,7 @@ namespace ToDB
         }
         public ToDBCommand InnerJoin(string table, string leftColumn, string rightColumn)
         {
-            return InnerJoin(table, on => on.AreEqual(leftColumn, rightColumn));
+            return InnerJoin(table, on => on.IsEqual(leftColumn, rightColumn));
         }
 
         public ToDBCommand LeftJoin(string table, Action<ConditionBuilder> on)
@@ -110,7 +116,7 @@ namespace ToDB
         }
         public ToDBCommand LeftJoin(string table, string leftColumn, string rightColumn)
         {
-            return LeftJoin(table, on => on.AreEqual(leftColumn, rightColumn));
+            return LeftJoin(table, on => on.IsEqual(leftColumn, rightColumn));
         }
 
         public ToDBCommand RightJoin(string table, Action<ConditionBuilder> on)
@@ -119,7 +125,7 @@ namespace ToDB
         }
         public ToDBCommand RightJoin(string table, string leftColumn, string rightColumn)
         {
-            return RightJoin(table, on => on.AreEqual(leftColumn, rightColumn));
+            return RightJoin(table, on => on.IsEqual(leftColumn, rightColumn));
         }
 
         public ToDBCommand FullJoin(string table, Action<ConditionBuilder> on)
@@ -128,7 +134,7 @@ namespace ToDB
         }
         public ToDBCommand FullJoin(string table, string leftColumn, string rightColumn)
         {
-            return FullJoin(table, on => on.AreEqual(leftColumn, rightColumn));
+            return FullJoin(table, on => on.IsEqual(leftColumn, rightColumn));
         }
 
         ToDBCommand Join(string table, Action<ConditionBuilder> where, Join.JoinType joinType)
@@ -168,7 +174,7 @@ namespace ToDB
             return this;
         }
 
-        public ToDBCommand OrderByDesc(Expression<Func<object>> column)
+        public ToDBCommand OrderByDesc<T>(Expression<Func<T>> column)
         {
             return OrderByDesc(column.GetPropertyName());
         }
@@ -176,7 +182,7 @@ namespace ToDB
         {
             return OrderBy(column, true);
         }
-        public ToDBCommand OrderByAsc(Expression<Func<object>> column)
+        public ToDBCommand OrderByAsc<T>(Expression<Func<T>> column)
         {
             return OrderByAsc(column.GetPropertyName());
         }
@@ -190,7 +196,7 @@ namespace ToDB
             return this;
         } 
 
-        public ToDBCommand GroupBy(Expression<Func<object>> column)
+        public ToDBCommand GroupBy<T>(Expression<Func<T>> column)
         {
             return GroupBy(column.GetPropertyName());
         }
@@ -266,11 +272,11 @@ namespace ToDB
             SetItems.Add(new SetItem { Left = left, Right = right });
             return this;
         }
-        public ToDBCommand Set(Expression<Func<object>> column, Expression<Func<object>> parameter)
+        public ToDBCommand Set<T1, T2>(Expression<Func<T1>> column, Expression<Func<T2>> parameter)
         {
             return Set(Utility.GetPropertyName(column), Utility.ToSqlParameter(parameter));
         }
-        public ToDBCommand Set(Expression<Func<object>> columnAndParameter)
+        public ToDBCommand Set<T>(Expression<Func<T>> columnAndParameter)
         {
             return Set(columnAndParameter, columnAndParameter);
         }
@@ -288,7 +294,7 @@ namespace ToDB
         {
             return Set(obj, (string)null);
         }
-        public ToDBCommand Set(object obj, Expression<Func<object>> except)
+        public ToDBCommand Set<T>(object obj, Expression<Func<T>> except)
         {
             return Set(obj, except.GetPropertyName());
         }
