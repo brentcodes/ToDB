@@ -82,7 +82,7 @@ namespace ToDB
             where(WhereClause);
             return this;
         }
-        public ToDBCommand WhereAreEqual(string left, string right)
+        public ToDBCommand WhereIsEqual(string left, string right)
         {
             return Where(where => where.IsEqual(left, right));
         }

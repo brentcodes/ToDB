@@ -41,7 +41,7 @@ select * from Order
 		and Order.RegionId=Customer.RegionId
 ```
 
-### How lucky, our model matches our database schema
+#### How lucky, our model matches our database schema
 ```C#
 var parameters = new { CompanyId = 5 };
 cmd.SelectFrom<Company>()
@@ -52,3 +52,27 @@ cmd.SelectFrom<Company>()
 ```sql
 select CompanyId,CompanyName from Company where CompanyId=@CompanyId
 ```
+
+#### Complex queries
+```C#
+cmd.From("Product")
+    .Select("OrderNumber")
+    .Select(subQuery =>
+        subQuery.Select("sum(Price)").From("Product")
+    , "Total")
+    .Where(where =>
+        where.IsEqual(() => parameters.CustomerId)
+        .And(either =>  
+            either.IsGreaterOrEqual(() => parameters.MinimumOder)
+            .Or()
+            .IsEqual(() => parameters.IsVeryImportant))
+    );
+```
+```sql
+select OrderNumber,(select sum(Price) from Product) Total
+	from Product
+	where CustomerId=@CustomerId 
+		and (MinimumOrder>=@MinimumOrder or IsVeryImportant=@IsVeryImportant)
+```
+
+

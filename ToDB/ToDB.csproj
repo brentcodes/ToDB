@@ -41,8 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ToDBCommand.cs" />
-    <Compile Include="IConjunction.cs" />
-    <Compile Include="ICondition.cs" />
     <Compile Include="ISqlSerializer.cs" />
     <Compile Include="Model\BinaryComparison.cs" />
     <Compile Include="Model\Conjunction.cs" />
